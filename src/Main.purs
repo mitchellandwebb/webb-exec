@@ -4,6 +4,7 @@ import Prelude
 
 import Effect (Effect)
 import Effect.Console (log)
+import Shell as Shell
 
 {- Ensures that the given method in the module is run as the 'main' function on NodeJs. This will enable shell commands like 
 
@@ -12,10 +13,9 @@ import Effect.Console (log)
 
 main :: Effect Unit
 main = do
-  pure unit
-  {-}
   shell <- Shell.new
-  Shell.buildProject
+  Shell.buildProject shell
+  {-}
   options <- Options.new
   moduleName <- Options.moduleName options
   methodName <- Options.methodName options 

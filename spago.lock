@@ -19,6 +19,7 @@
             "transformers",
             "tuples",
             "unsafe-coerce",
+            "webb-commandline",
             "webb-directory",
             "webb-file",
             "webb-monad",
@@ -73,8 +74,10 @@
             "monad-loops",
             "newtype",
             "node-buffer",
+            "node-child-process",
             "node-event-emitter",
             "node-fs",
+            "node-os",
             "node-path",
             "node-process",
             "node-streams",
@@ -112,6 +115,7 @@
             "unfoldable",
             "unicode",
             "unsafe-coerce",
+            "webb-commandline",
             "webb-directory",
             "webb-file",
             "webb-monad",
@@ -777,6 +781,9 @@
     },
     "extra_packages": {
       "spec-discovery": "8.2.0",
+      "webb-commandline": {
+        "path": "../webb-commandline"
+      },
       "webb-directory": {
         "path": "../webb-directory"
       },
@@ -1358,6 +1365,24 @@
         "unsafe-coerce"
       ]
     },
+    "node-child-process": {
+      "type": "registry",
+      "version": "11.1.0",
+      "integrity": "sha256-vioMNgk8p+CGwlb6T3I3TIir27el85Yg4satLE/I89w=",
+      "dependencies": [
+        "exceptions",
+        "foreign",
+        "foreign-object",
+        "functions",
+        "node-event-emitter",
+        "node-fs",
+        "node-os",
+        "node-streams",
+        "nullable",
+        "posix-types",
+        "unsafe-coerce"
+      ]
+    },
     "node-event-emitter": {
       "type": "registry",
       "version": "3.0.0",
@@ -1393,6 +1418,32 @@
         "partial",
         "prelude",
         "strings",
+        "unsafe-coerce"
+      ]
+    },
+    "node-os": {
+      "type": "registry",
+      "version": "5.1.0",
+      "integrity": "sha256-K3gcu9AXanN1+qtk1900+Fi+CuO0s3/H/RMNRNgIzso=",
+      "dependencies": [
+        "arrays",
+        "bifunctors",
+        "console",
+        "control",
+        "datetime",
+        "effect",
+        "either",
+        "exceptions",
+        "foldable-traversable",
+        "foreign",
+        "foreign-object",
+        "functions",
+        "maybe",
+        "node-buffer",
+        "nullable",
+        "partial",
+        "posix-types",
+        "prelude",
         "unsafe-coerce"
       ]
     },
@@ -1961,6 +2012,17 @@
       "version": "6.0.0",
       "integrity": "sha256-IqIYW4Vkevn8sI+6aUwRGvd87tVL36BBeOr0cGAE7t0=",
       "dependencies": []
+    },
+    "webb-commandline": {
+      "type": "local",
+      "path": "../webb-commandline",
+      "dependencies": [
+        "effect",
+        "maybe",
+        "node-buffer",
+        "node-child-process",
+        "prelude"
+      ]
     },
     "webb-directory": {
       "type": "local",
