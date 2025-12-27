@@ -3,7 +3,9 @@ module Main where
 import Prelude
 
 import Effect (Effect)
+import Effect.Aff (launchAff_)
 import Effect.Console (log)
+import Module as Mod
 import Options as Options
 import Shell as Shell
 
@@ -13,22 +15,18 @@ import Shell as Shell
 -}
 
 main :: Effect Unit
-main = do
+main = launchAff_ do
   shell <- Shell.new
   Shell.buildProject shell
   options <- Options.new
   moduleName <- Options.moduleName options
   methodName <- Options.methodName options 
-  {-}
-  paths <- Paths.new
-  mod <- Paths.findModule paths moduleName methodName
-  dir <- Dir.new
-  Dir.ensureOutputDir dir mod
-  Mod.writeCallingFile mod dir
-  outputFile <- Dir.outputFilePath dir
-  Shell.execute shell outputFile
-  -}
-  pure unit
+  mod <- Mod.new moduleName methodName
+  Mod.ensureInputFile mod
+  Mod.ensureOutputDir mod
+  Mod.writeExecutable mod
+  let execPath = Mod.outputFilePath mod
+  Shell.execute shell execPath
   
   
 
