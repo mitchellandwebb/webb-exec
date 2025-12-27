@@ -8,6 +8,7 @@ import Effect.Aff.Class (class MonadAff, liftAff)
 import Effect.Class (class MonadEffect)
 import Webb.Directory.Action as Action
 import Webb.Directory.Data.Absolute (AbsolutePath, (++))
+import Webb.Directory.Data.Absolute as Abs
 import Webb.Directory.Data.Absolute as AbsPath
 import Webb.File as File
 import Webb.Monad.Prelude (throwString)
@@ -68,7 +69,7 @@ writeExecutable :: forall m. MonadAff m => Module -> m Unit
 writeExecutable mod = liftAff do
   let imports = 
         "import { " <> methodName mod <> " } from '" <> 
-          show (inputFilePath mod) <> "'"
+          Abs.unwrap (inputFilePath mod) <> "'"
       call = methodName mod <> "()"
       code = imports <> "\n\n" <> call <> "\n"
   file <- File.newFile (outputFilePath mod)

@@ -3,7 +3,8 @@ module Shell where
 import Prelude
 
 import CommandLine as Command
-import Effect.Class (class MonadEffect)
+import Effect.Class (class MonadEffect, liftEffect)
+import Effect.Console (log)
 import Webb.Directory.Data.Absolute as Abs
 
 
@@ -26,5 +27,7 @@ buildProject _ = do
 execute :: forall m. MonadEffect m => Shell -> Abs.AbsolutePath -> m Unit
 execute _ path = do
   c <- Command.newCommandLine
-  let command = "node " <> Abs.unwrap path
+  let pathStr = Abs.unwrap path
+  liftEffect do log $ "Executing path: " <> pathStr 
+  let command = "node " <> pathStr
   void $ Command.shell c command

@@ -14,21 +14,27 @@ import Shell as Shell
 `webb-exec Main build`
 -}
 
+
 main :: Effect Unit
-main = launchAff_ do
-  shell <- Shell.new
-  Shell.buildProject shell
-  options <- Options.new
-  moduleName <- Options.moduleName options
-  methodName <- Options.methodName options 
-  mod <- Mod.new moduleName methodName
-  Mod.ensureInputFile mod
-  Mod.ensureOutputDir mod
-  Mod.writeExecutable mod
-  log "Wrote the Purescript executable"
-  let execPath = Mod.outputFilePath mod
-  Shell.execute shell execPath
-  log "Executed the Purescript executable"
+main = do 
+  launchAff_ do
+    shell <- Shell.new
+    Shell.buildProject shell
+    options <- Options.new
+    moduleName <- Options.moduleName options
+    methodName <- Options.methodName options 
+    mod <- Mod.new moduleName methodName
+    Mod.ensureInputFile mod
+    Mod.ensureOutputDir mod
+    Mod.writeExecutable mod
+    log "Wrote the Purescript executable"
+    let execPath = Mod.outputFilePath mod
+    Shell.execute shell execPath
+    log "Executed the Purescript executable!"
+  
+hello :: Effect Unit
+hello = do 
+  log "Hello, I am a log"
   
   
 
