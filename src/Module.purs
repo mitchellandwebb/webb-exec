@@ -9,8 +9,6 @@ import Effect.Class (class MonadEffect)
 import Webb.Directory.Action as Action
 import Webb.Directory.Data.Absolute (AbsolutePath, (++))
 import Webb.Directory.Data.Absolute as AbsPath
-import Webb.Directory.Visitor (newVisitor)
-import Webb.Directory.Visitor as Visit
 import Webb.File as File
 import Webb.Monad.Prelude (throwString)
 
@@ -61,21 +59,22 @@ ensureInputFile mod = liftAff do
 ensureOutputDir :: forall m. MonadAff m => Module -> m Unit
 ensureOutputDir mod = liftAff do
   action <- Action.newAction
-  Action.ensureDir action (outputDirPath mod)
+  Action.ensureDir action (outputDirPath mod) 
 
 -- Write the executable to the specified file location. The file will literally only
 -- import the desired method name from the absolute file path, call the method name,
 -- and then ... that's it.
 writeExecutable :: forall m. MonadAff m => Module -> m Unit
 writeExecutable mod = liftAff do
-  let imports = "import { " <> methodName mod <> " } from '" <> 
-        inputFilePath mod <> "'"
+  let imports = 
+        "import { " <> methodName mod <> " } from '" <> 
+          show (inputFilePath mod) <> "'"
       call = methodName mod <> "()"
       code = imports <> "\n\n" <> call <> "\n"
   file <- File.newFile (outputFilePath mod)
   File.openTruncated file
   finally (File.close file) do
-    File.writeString code
+    File.writeString file code
 
 
 

@@ -4,7 +4,7 @@ import Prelude
 
 import Effect (Effect)
 import Effect.Aff (launchAff_)
-import Effect.Console (log)
+import Effect.Class.Console (log)
 import Module as Mod
 import Options as Options
 import Shell as Shell
@@ -25,8 +25,10 @@ main = launchAff_ do
   Mod.ensureInputFile mod
   Mod.ensureOutputDir mod
   Mod.writeExecutable mod
+  log "Wrote the Purescript executable"
   let execPath = Mod.outputFilePath mod
   Shell.execute shell execPath
+  log "Executed the Purescript executable"
   
   
 
