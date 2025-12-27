@@ -21,6 +21,7 @@ package:
     - webb-random
     - webb-parsing
     - webb-file
+    - webb-commandline
     - webb-directory
     - profunctor-lenses
     - parsing
@@ -50,3 +51,5 @@ workspace:
       path: ../webb-file
     webb-directory:
       path: ../webb-directory
+    webb-commandline:
+      path: ../webb-commandline
